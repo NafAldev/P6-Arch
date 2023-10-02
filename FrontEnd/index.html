@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
@@ -18,7 +18,8 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="login.html">login</a></li>
+			<li ><a id="login" href="login.html">login</a></li>
+			<li><a id="logout" href="index.html" >logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -26,7 +27,7 @@
 <main>
 	<section id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
+			<img src="./assets/images/sophie-bluel.png" alt="image de sophie-bluel">
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,7 +37,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div id="modifyContainer">
+		<h2>Mes Projets</h2>		
+			<div id="modify">
+				<img id="modifyIcon" src="./assets/icons/edition.png" alt="icone de modification" >
+				<a id="modifyModal" href="modal.html">modifier</a>
+			</div>
+		</div>
+		<div class="filters">
+		</div>
 		<div class="gallery">
 		</div>
 	</section>

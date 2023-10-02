@@ -1,10 +1,13 @@
+const gallery = document.querySelector(".gallery"); 
+const filterContainer = document.querySelector(".filters")
+
 // Requête pour créer la galerie à partir de l'API
 fetch("http://localhost:5678/api/works")
   .then(response => response.json()) 
   .then((data) => {
     data.forEach((works) => {
       const figure = figureCreate(works); 
-      const gallery = document.querySelector(".gallery"); 
+
       gallery.appendChild(figure); 
     });
   })
@@ -36,8 +39,6 @@ fetch("http://localhost:5678/api/categories")
   .then(response => response.json()) 
   .then(categories => {
     const portfolio = document.getElementById("portfolio"); 
-    const filterContainer = document.createElement("div"); 
-    filterContainer.classList = "filters"; // Ajoute une classe pour le css
 
     // Crée le bouton "Tous"
     categories.unshift({
@@ -82,3 +83,18 @@ function filterByCategory(categoryId) {
     }
   });
 }
+
+  const loginDisplay = document.getElementById("login");
+  const logoutDisplay = document.getElementById("logout")
+  // console.log(filtersButtonsDisplay)
+
+  if (sessionStorage.getItem("token")) {
+    loginDisplay.style.display = "none";
+    logoutDisplay.style.display = "block";
+    filterContainer.style.display = "none";
+  } else {
+    loginDisplay.style.display = "block";
+    logoutDisplay.style.display = "none";
+
+  }
+

@@ -1,32 +1,34 @@
-const formConnexion = document.getElementById("formConnexion")
-  
+const formConnexion = document.getElementById("formConnexion");
+
 formConnexion.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const email = formConnexion.email; 
-    const password = formConnexion.password
-
+    const email = formConnexion.email;
+    const password = formConnexion.password;
+    // Stock les valeurs renseignés dans les champs 
     const userData = {
         email: email.value,
         password: password.value,
     };
 
   // console.log(userData);
-
+  
   fetch("http://localhost:5678/api/users/login", {
-    method: "POST",
+    method: "POST", //
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
   })
     .then((response) => response.json())
     .then((data) => {
       if (data.token) {
-        //stocke le token et redirige l'utilisateur vers la page d'accueil
+        // Stocke le token dans la session
         sessionStorage.setItem("token", data.token);
+
+        // Redirige l'utilisateur vers la page d'accueil
         window.location.replace("index.html");
+
       } else {
-        // affiche un message d'erreur
-        alert("Erreur dans l'identifiant ou le mot de passe");
+        alert("Erreur ! Merci de vérifier votre saisie !");
       }
     })
     .catch((error) => {

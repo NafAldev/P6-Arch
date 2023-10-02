@@ -89,7 +89,6 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
 	padding: 0 10px;
@@ -104,6 +103,21 @@ nav li a {
 li:hover {
 	color: #B1663C;
 }
+
+
+/*login*/
+
+#logout{
+	display: none;
+	margin-left: -15px;
+}
+
+#login{
+	display: block;
+}
+
+/* end login */
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -127,11 +141,42 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+	
+/* Modify Modal section */
 #portfolio h2 {
-	text-align: center;
+	text-align:right;
 	margin-bottom: 1em;
+	width: 60%;
 }
+
+#modifyContainer{
+	display: flex;
+	gap: 20px;
+}
+
+#modify {
+	display: flex;
+	justify-content: center;
+	align-items:baseline;
+	width: 15%;	
+	gap: 15px;
+
+}
+#modifyIcon {
+	width: 25px;
+}
+
+
+#modifyModal{
+	text-decoration: none;
+	color:black;
+	font-size: 15px ;
+	font-weight: 500;
+	font-family: Work Sans;	
+}
+
 /* filtres*/
+
 .filters{
 	text-align: center;
 	margin-bottom: 30px;
@@ -218,7 +263,6 @@ footer nav ul {
 	margin: 2em
 }
 
-/*login*/
 
 body{
 	background: #FFFEF8;
