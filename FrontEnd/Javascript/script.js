@@ -1,37 +1,42 @@
-const gallery = document.querySelector(".gallery"); 
-const filterContainer = document.querySelector(".filters")
+function fetchAndCreateGallery() {
+  const gallery = document.querySelector(".gallery");
+ //console.log("Avant la requête fetch");
 
-// Requête pour créer la galerie à partir de l'API
-fetch("http://localhost:5678/api/works")
-  .then(response => response.json()) 
-  .then((data) => {
-    data.forEach((works) => {
-      const figure = figureCreate(works); 
-
-      gallery.appendChild(figure); 
+  fetch("http://localhost:5678/api/works")
+    .then(response => response.json())
+    .then((data) => {
+      // console.log("Données récupérées depuis l'API :", data);
+      data.forEach((works) => {
+        const figure = figureCreate(works);
+        gallery.appendChild(figure);
+      });
+    })
+    .catch((error) => {
+      console.error("Erreur :", error);
     });
-  })
-  .catch((error) => {
-    console.error("Erreur :", error); // renvoies les erreurs 
-  });
+     //console.log("Après la requête fetch");
+}
 
-// Fonction pour créer la galerie
+// Fonction pour créer une figure à partir des données d'un projet
 function figureCreate(works) {
   const figure = document.createElement("figure");
-  figure.setAttribute("data-category", works.categoryId); // Définit l'attribut data-category qui servira pour le filtrage 
+  figure.setAttribute("data-category", works.categoryId);
 
-  const image = document.createElement("img"); 
-  image.src = works.imageUrl; 
-  image.alt = works.title; 
+  const image = document.createElement("img");
+  image.src = works.imageUrl;
+  image.alt = works.title;
 
   const tagline = document.createElement("figcaption");
   tagline.innerHTML = works.title;
 
-  figure.appendChild(image); 
-  figure.appendChild(tagline); 
+  figure.appendChild(image);
+  figure.appendChild(tagline);
 
   return figure;
 }
+
+fetchAndCreateGallery();
+
 
 
 // Récupération des catégories via la requête
@@ -39,6 +44,7 @@ fetch("http://localhost:5678/api/categories")
   .then(response => response.json()) 
   .then(categories => {
     const portfolio = document.getElementById("portfolio"); 
+    const filterContainer = document.querySelector(".filters");
 
     // Crée le bouton "Tous"
     categories.unshift({
@@ -85,16 +91,23 @@ function filterByCategory(categoryId) {
 }
 
   const loginDisplay = document.getElementById("login");
-  const logoutDisplay = document.getElementById("logout")
-  // console.log(filtersButtonsDisplay)
+  const logoutDisplay = document.getElementById("logout");
+  const modifyElementsDisplay = document.getElementById("modify");
+  const filterContainer = document.querySelector(".filters");
+
+
 
   if (sessionStorage.getItem("token")) {
     loginDisplay.style.display = "none";
     logoutDisplay.style.display = "block";
     filterContainer.style.display = "none";
+    modifyElementsDisplay.style.display = "block";
+    
   } else {
     loginDisplay.style.display = "block";
     logoutDisplay.style.display = "none";
-
+    filterContainer.style.display = "block";
+    modifyElementsDisplay.style.display = "none";
+  
   }
 
