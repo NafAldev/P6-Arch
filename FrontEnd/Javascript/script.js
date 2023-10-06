@@ -21,6 +21,7 @@ function fetchAndCreateGallery() {
 function figureCreate(works) {
   const figure = document.createElement("figure");
   figure.setAttribute("data-category", works.categoryId);
+  figure.setAttribute("data-id", works.id);
 
   const image = document.createElement("img");
   image.src = works.imageUrl;
@@ -90,24 +91,23 @@ function filterByCategory(categoryId) {
   });
 }
 
-  const loginDisplay = document.getElementById("login");
-  const logoutDisplay = document.getElementById("logout");
-  const modifyElementsDisplay = document.getElementById("modify");
-  const filterContainer = document.querySelector(".filters");
+const loginDisplay = document.getElementById("login");
+const logoutDisplay = document.getElementById("logout");
+const modifyElementsDisplay = document.getElementById("modify");
+const filterContainer = document.querySelector(".filters");
 
 
 
-  if (sessionStorage.getItem("token")) {
-    loginDisplay.style.display = "none";
-    logoutDisplay.style.display = "block";
-    filterContainer.style.display = "none";
-    modifyElementsDisplay.style.display = "block";
+if (sessionStorage.getItem("token")) {
+  loginDisplay.style.display = "none";
+  logoutDisplay.style.display = "block";
+  filterContainer.style.display = "none";
+  modifyElementsDisplay.style.display = "block";
     
-  } else {
-    loginDisplay.style.display = "block";
-    logoutDisplay.style.display = "none";
-    filterContainer.style.display = "block";
-    modifyElementsDisplay.style.display = "none";
-  
-  }
+} else {
+  loginDisplay.style.display = "block";
+  logoutDisplay.style.display = "none";
+  filterContainer.style.display = "block";
+  modifyElementsDisplay.style.display = "none";
+}
 
