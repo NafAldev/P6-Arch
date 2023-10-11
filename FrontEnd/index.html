@@ -36,15 +36,40 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
-	<aside id="modal" aria-hidden ="true" role="dialog" >
-        <div class="modalContainer">
+	<aside id="modal">
+        <div class="modalContainer" id="modal1">
             <a id="closeModal" href="#"> <i class="fas fa-times"></i></a>
             <h3> Galerie photo</h3>
             <div class="modalGallery" >
             </div>
 			<div class="modalButtonContainer">
-            	<button type="submit" class="addPhotoButton">Ajouter une photo </button>
+            	<button type="submit" id="addPhotoButton">Ajouter une photo </button>
     		</div>    
+		</div>
+		<div class="modalContainer" id="modal2">
+			<i class="fas fa-arrow-left" id="return"></i>
+			<h3>Ajout photo</h3>
+			<form enctype="multipart/form-data" method="POST">
+				<div id="upload">
+					<i class="fa-regular fa-image"></i>
+					<label for="uploadImage" id="ajouterPhotos">+ Ajouter photo </label>
+					<input type="file" name="image" id="uploadImage" accept="image/*" multiple>
+					<p>jpg,png : 4mo max</p>
+				</div>
+				<div class="fieldInputs">
+					<label for="title">Titre</label>
+					<input type="text" name="title">
+				</div>
+				<div class="fieldInputs">
+					<label for="category">Categorie</label>
+					<select id="selectionCategories">
+
+					</select>
+				</div>
+				<div class="modalButtonContainer">
+					<button type="submit" value="Valider" id="">Valider</button>
+				</div>	
+			</form>
 		</div>
     </aside>
 	<section id="portfolio">

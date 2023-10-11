@@ -1,10 +1,17 @@
+
+let datas = [];
+
+let OptionCategories =[];
+
+
 function fetchAndCreateGallery() {
   const gallery = document.querySelector(".gallery");
  //console.log("Avant la requête fetch");
-
+ 
   fetch("http://localhost:5678/api/works")
     .then(response => response.json())
     .then((data) => {
+      datas = data
       // console.log("Données récupérées depuis l'API :", data);
       data.forEach((works) => {
         const figure = figureCreate(works);
@@ -44,8 +51,19 @@ fetchAndCreateGallery();
 fetch("http://localhost:5678/api/categories")
   .then(response => response.json()) 
   .then(categories => {
+    // console.log(OptionCategories);
     const portfolio = document.getElementById("portfolio"); 
     const filterContainer = document.querySelector(".filters");
+   
+    const selectionCategories = document.getElementById("selectionCategories");
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        // console.log(option)
+        option.value = category.id;
+        option.textContent = category.name;
+        selectionCategories.appendChild(option)
+     
+  });
 
     // Crée le bouton "Tous"
     categories.unshift({
@@ -62,7 +80,7 @@ fetch("http://localhost:5678/api/categories")
       button.addEventListener("click", () => {
         filterByCategory(category.id); 
       });
-      
+  
       filterContainer.appendChild(button); 
       let firstChild = filterContainer.firstChild; 
     });

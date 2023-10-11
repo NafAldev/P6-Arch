@@ -2,38 +2,37 @@
 const modal = document.querySelector("#modal");
 const modalGallery = document.querySelector(".modalGallery");
 
-// fonction pour ouvrir et recuperer la galerie de la première modal
+
+
+// fonction pour récuperer ma galerie via l'autre réquete 
 function fetchAndCreateaAndDeleteGalleryModal() {
-    fetch("http://localhost:5678/api/works")
-        .then(response => response.json())
-        .then((data) => {
-            data.forEach((works) => {
-                const figure = figureCreate(works);
+   
+    // Parcourez les données stockées dans la variable 'datas'
+    datas.forEach((works) => {
+      const figure = figureCreate(works);
 
-                // Créer une icône de suppression 
-                const deleteIcon = document.createElement("a");
-                deleteIcon.classList.add("delete-icon");
-                deleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-                
-                // evénement pour supprimer le projet sélectionné
-                deleteIcon.addEventListener("click", () => {
-                    deleteProjectById(works.id);
-                });
-
-                // Ajoute l'icône de suppression à chaque figure
-                figure.appendChild(deleteIcon);
-
-                modalGallery.appendChild(figure);
-            });
-        })
-        .catch((error) => {
-            console.error("Erreur :", error);
-        });
+      //console.log(modalGallery)
+      // Créez une icône de suppression 
+      const deleteIcon = document.createElement("a");
+      deleteIcon.classList.add("delete-icon");
+      deleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+  
+      
+      deleteIcon.addEventListener("click", () => {
+        deleteProjectById(works.id);
+        // Supprimez la figure de la modal
+        modalGallery.removeChild(figure);
+      });
+    
+      figure.appendChild(deleteIcon);
+      modalGallery.appendChild(figure);
+    });
 }
-
+  
 
 // Ouvre et affiche la modale 
 function openFirstModal (){
+    // console.log(datas)
     //console.log("Ouverture");
     const modal = document.querySelector("#modal");
     modal.style.display = "block"; 
@@ -62,6 +61,7 @@ const close = document.getElementById("closeModal");
 close.addEventListener("click", () => {
     closeFirstModal();
 })
+
 
 
 // supprimer un projet en utilsant l'id
@@ -98,4 +98,27 @@ function deleteProjectById(id) {
         console.error("Erreur lors de la suppression :", error);
     });
 }
+
+
+
+// ouvrir la seconde modale d'ajout 
+const secondModal = document.getElementById("modal2");
+const firstModal = document.getElementById("modal1");
+
+function openSecondModal() {
+    secondModal.style.display = "block";
+    firstModal.style.display = "none";
+}
+
+const openSecondModalButton = document.getElementById("addPhotoButton");
+const returnArrowBtn = document.getElementById("return");
+
+returnArrowBtn.addEventListener("click", () => {
+    secondModal.style.display = "none";
+    firstModal.style.display = "block";
+});
+
+openSecondModalButton.addEventListener("click", () => {
+    openSecondModal();
+});
 
