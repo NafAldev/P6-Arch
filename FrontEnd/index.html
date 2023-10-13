@@ -49,25 +49,26 @@
 		<div class="modalContainer" id="modal2">
 			<i class="fas fa-arrow-left" id="return"></i>
 			<h3>Ajout photo</h3>
-			<form enctype="multipart/form-data" method="POST">
+			<form id="form" enctype="multipart/form-data" method="POST">
 				<div id="upload">
-					<i class="fa-regular fa-image"></i>
-					<label for="uploadImage" id="ajouterPhotos">+ Ajouter photo </label>
-					<input type="file" name="image" id="uploadImage" accept="image/*" multiple>
-					<p>jpg,png : 4mo max</p>
+					<i class="fa-regular fa-image" ></i>
+					<label for="uploadImage" id="ajouterPhotos" >+ Ajouter photo </label>
+					<input type="file" name="image" id="uploadImage" accept="image/*" multiple >
+					<img id="uploadedImage" src="" alt="Image">
+					<p id="formatData">jpg,png : 4mo max</p>
 				</div>
 				<div class="fieldInputs">
 					<label for="title">Titre</label>
-					<input type="text" name="title">
+					<input type="text" name="title" id="titleInputModal">
 				</div>
 				<div class="fieldInputs">
 					<label for="category">Categorie</label>
-					<select id="selectionCategories">
+					<select name="category" id="selectionCategories">
 
 					</select>
 				</div>
 				<div class="modalButtonContainer">
-					<button type="submit" value="Valider" id="">Valider</button>
+					<button type="submit" value="Valider" id="btnValider">Valider</button>
 				</div>	
 			</form>
 		</div>
@@ -107,7 +108,7 @@
 		</ul>
 	</nav>
 </footer>
-<script src="./Javascript/script.js"></script>
-<script src="./Javascript/modal.js"></script>
+<script src="./Javascript/script.js" type="text/javascript"></script>
+<script src="./Javascript/modal.js" type="text/javascript"></script>
 </body>
 </html>

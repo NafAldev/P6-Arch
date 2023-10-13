@@ -418,10 +418,9 @@ body{
 }
 
 #upload{
-	padding-top: 20px;
-	margin-top: 30px;
-	width: 420px;
-	height: 150px;
+	height: 180px;
+	width: 400px;;
+	background-color: #e8f1f6;
 	border-radius: 3px;
 	background: #E8F1F6;
 	display: flex;
@@ -430,10 +429,17 @@ body{
 	gap: 10px;
 	position: relative;
 
+
+}
+
+#uploadedImage{
+	width: 129px;
+	height: 180px;
+	display: none;
 }
 
 .fa-image{
-	font-size: 6vw;
+	font-size: 60px;
 	color: #B9C5CC;
 }
 
