@@ -86,8 +86,6 @@ const token = sessionStorage.getItem("token");
       console.error("Erreur lors de la suppression :", error);
     });
 }
- 
-
 
 // Ouvrir la seconde modale d'ajout et revenir à la première modale
 const secondModal = document.getElementById("modal2");
