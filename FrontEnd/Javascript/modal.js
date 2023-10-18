@@ -1,4 +1,4 @@
-const modal = document.querySelector("#modal");
+document.querySelector("#modal");
 const modalGallery = document.querySelector(".modalGallery");
 
 // Créer une figure avec une icône de suppression
@@ -10,7 +10,8 @@ function createFigureWithDeleteIcon(works) {
   deleteIcon.classList.add("delete-icon");
   deleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
 
-  deleteIcon.addEventListener("click", () => {
+  deleteIcon.addEventListener("click", (e) => {
+    e.preventDefault()
     deleteProjectById(works.id);
     // Supprimez la figure de la modal
     modalGallery.removeChild(figure);
@@ -19,6 +20,8 @@ function createFigureWithDeleteIcon(works) {
   figure.appendChild(deleteIcon);
   modalGallery.appendChild(figure);
 }
+
+
 
 // Créer la galerie modale à partir de datas
 function fetchAndCreateGalleryModal() {
@@ -58,6 +61,7 @@ close.addEventListener("click", () => {
 // Supprimer un projet en utilisant l'ID
 function deleteProjectById(id) {
     // Récupération du token
+    console.log("Fonction deleteProjectById appelée avec l'ID :", id);
 const token = sessionStorage.getItem("token");
   
     // Requête pour supprimer le projet
@@ -70,11 +74,20 @@ const token = sessionStorage.getItem("token");
     })
     .then(response => {
       if (response.status === 200) {
+        return response.json();
+      }
+    })
+    .then(works => {
+      console.log("Success block");
+      if(works) {
         // Récupère l'ID qui permettra d'identifier le projet sélectionné
         const projectToDelete = document.querySelector(`figure[data-id="${id}`);
-          projectToDelete.remove();
+        projectToDelete.remove();
+        setTimeout(() => {
           alert("Projet supprimé avec succès!");
-        }
+        }, 100);
+        window.location.href = "index.html";
+      }
     })
     .catch(error => {
       // Gérez les erreurs de la requête
@@ -173,6 +186,7 @@ function addNewProject() {
         if (works) {
           createFigureWithDeleteIcon(works);
           alert("Projet ajouté avec succès !");
+          window.location.href = "index.html";
         }
       })
       .catch(error => {
