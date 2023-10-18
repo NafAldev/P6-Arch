@@ -129,3 +129,11 @@ if (sessionStorage.getItem("token")) {
   modifyElementsDisplay.style.display = "none";
 }
 
+
+//Déconnexion 
+const logoutBtn = document.getElementById("logout"); 
+
+logoutBtn.addEventListener("click", () => {
+  sessionStorage.removeItem("token");
+  window.location.replace("index.html");
+});

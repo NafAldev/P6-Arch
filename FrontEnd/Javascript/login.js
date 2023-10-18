@@ -1,5 +1,6 @@
 const formConnexion = document.getElementById("formConnexion");
 
+
 formConnexion.addEventListener("submit", (event) => {
     event.preventDefault();
 
