@@ -7,6 +7,7 @@ let OptionCategories =[];
 
 //******** La galerie d'accueil **********//
 
+
 // Création d'une figure
 function figureCreate(works) {
     const figure = document.createElement("figure");
@@ -122,7 +123,7 @@ function filterByCategory(categoryId) {
   
     if (sessionStorage.getItem("token")) {
       loginDisplay.style.display = "none";
-      logoutDisplay.style.display = "block";
+      logoutDisplay.style display = "block";
       filterContainer.style.display = "none";
       modifyElementsDisplay.style.display = "block";
     } else {

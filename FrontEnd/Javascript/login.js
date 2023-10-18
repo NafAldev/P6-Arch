@@ -1,3 +1,7 @@
+////////////// Formulaire de connexion ////////////
+
+
+//******** Requete de connexion  **********//
 const formConnexion = document.getElementById("formConnexion");
 
 
