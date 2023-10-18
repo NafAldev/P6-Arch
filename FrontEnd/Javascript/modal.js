@@ -85,8 +85,8 @@ const token = sessionStorage.getItem("token");
         projectToDelete.remove();
         setTimeout(() => {
           alert("Projet supprimé avec succès!");
-        }, 100);
-        window.location.href = "index.html";
+        }, 3000);
+        //window.location.href = "index.html";
       }
     })
     .catch(error => {
