@@ -72,20 +72,16 @@ const token = sessionStorage.getItem("token");
       if (response.status === 200) {
         // Récupère l'ID qui permettra d'identifier le projet sélectionné
         const projectToDelete = document.querySelector(`figure[data-id="${id}`);
-        
-        // Puis le supprime
-        if (projectToDelete) {
           projectToDelete.remove();
+          alert("Projet supprimé avec succès!");
         }
-      } else {
-        console.error("Échec de la suppression côté serveur");
-      }
     })
     .catch(error => {
       // Gérez les erreurs de la requête
       console.error("Erreur lors de la suppression :", error);
     });
-}
+  }
+
 
 // Ouvrir la seconde modale d'ajout et revenir à la première modale
 const secondModal = document.getElementById("modal2");
@@ -134,64 +130,54 @@ uploadImage.addEventListener("change", function () {
 
 
 
-// Ajouter un nouveau projet 
-const form = document.getElementById('form'); 
+// Ajout d'un nouveau projet 
+
 const btnValiderNewProject = document.getElementById("btnValider");
 btnValiderNewProject.addEventListener("click", addNewProject);
+const form = document.getElementById('form'); 
 
- 
 
 function addNewProject() {
-form.addEventListener('submit', (event) => {
-  event.preventDefault(); 
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  // Récupérer les données du formulaire
-  const title = document.getElementById("titleInputModal").value;
-  const category = document.getElementById("selectionCategories").value;
-  const image = document.getElementById("uploadImage").files[0];
+    const title = document.getElementById("titleInputModal").value;
+    const category = document.getElementById("selectionCategories").value;
+    const image = document.getElementById("uploadImage").files[0];
 
+    if (!title || !category || !image) {
+      alert("Veuillez remplir tous les champs du formulaire.");
+      return;
+    }
 
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('image', image);
 
-  // Créez un objet FormData pour les données
-  const formData = new FormData(form);
+    const token = sessionStorage.getItem('token');
 
-  
-// Ajoutez les données au FormData
-  formData.append('title', title);
-  formData.append('category', category);
-  formData.append('image', image);
-
-  console.log(image)
-
-  // Token pour avoir accés au endpoint
-  const token = sessionStorage.getItem('token');
-  console.log(token)
-
-  //Requête pour envoyer les infos du form
-  fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-        "Authorization": "Bearer " +token
-    },
-    body: formData
-    
-  })
-  .then(response => response.json())
-  .then(works => {
-    /*
-    const figure = figureCreate(works);
-    const gallery = document.querySelector(".gallery");
-    gallery.appendChild(figure)
-
-    const figureModal = createFigureWithDeleteIcon(works);
-    const modalGallery = document.querySelector(".modalGallery");
-    modalGallery.appendChild(figureModal)
-    alert("ajouter avec succés")
-    */
-    console.log(works)
-  })
-    .catch(error => {
+    fetch("http://localhost:5678/api/works", {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    })
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        }
+      })
+      .then(works => {
+        if (works) {
+          createFigureWithDeleteIcon(works);
+          alert("Projet ajouté avec succès !");
+        }
+      })
+      .catch(error => {
         console.error("Erreur lors de la création:", error.message);
+        alert("Erreur lors de la création du projet.");
+      });
   });
-})
 }
