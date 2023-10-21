@@ -142,7 +142,8 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 	
-/* Modify Modal section */
+/* Section "modfier" */
+
 #portfolio h2 {
 	text-align:right;
 	margin-bottom: 1em;
@@ -158,24 +159,28 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	align-items:baseline;
-	width: 15%;	
+	width: 20%;	
 	gap: 15px;
-
+	padding-top:8px;
 }
 #modifyIcon {
-	width: 25px;
+	font-size: 17px;
 }
 
 
 #modifyModal{
-	text-decoration: none;
 	color:black;
 	font-size: 15px ;
 	font-weight: 500;
 	font-family: Work Sans;	
+	background-color: transparent; 
+    border: none;
+	cursor: pointer;
 }
+/* end Section
 
-/* filtres*/
+
+/* Section "filtres" */
 
 .filters{
 	text-align: center;
@@ -192,8 +197,9 @@ li:hover {
 	border-radius: 60px;
 	border: 1px solid #1D6154;
 	padding: 8px;
-	margin-right: 5px;
+	margin-right: 10px;
 	cursor: pointer;
+	
 }
 
 .btn:active{
