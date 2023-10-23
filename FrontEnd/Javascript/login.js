@@ -16,7 +16,6 @@ formConnexion.addEventListener("submit", (event) => {
         password: password.value,
     };
 
-  // console.log(userData);
   
   fetch("http://localhost:5678/api/users/login", {
     method: "POST", 
@@ -31,7 +30,7 @@ formConnexion.addEventListener("submit", (event) => {
 
         // Redirige l'utilisateur vers la page d'accueil
         window.location.replace("index.html");
-
+    
       } else {
         alert("Erreur ! Merci de vérifier votre saisie !");
       }
@@ -41,3 +40,6 @@ formConnexion.addEventListener("submit", (event) => {
       console.error("Erreur lors de la requête Fetch : ", error);
     });
 });
+
+
+

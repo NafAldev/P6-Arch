@@ -3,23 +3,23 @@
 
 //******** Ouverture et création de la galerie modal**********//
 
-// Récuperation de nos élements (modal)
+// Récupération des éléments de la modale
 const modal = document.querySelector("#modal");
 const modalGallery = document.querySelector(".modalGallery");
 const gallery = document.querySelector(".gallery");
 
-// Ouverture de la premiere modal et charge le contenu de la galerie
+// Fonction pour ouvrir la première modale et charger son contenu
 function openFirstModal() {
     modal.style.display = "block";
     modalGallery.innerHTML ="";
     fetchAndCreateGalleryModal();
 }
-const modifyModal = document.getElementById("modifyModal"); // ancre
+const modifyModal = document.getElementById("modifyModal"); //Lien pour ouvrir la première modale
 modifyModal.addEventListener("click", () => {
     openFirstModal();
 });
 
-// Créer une figure avec une icône de suppression
+// Fonction pour créer une figure avec une icône de suppression
 function createFigureWithDeleteIcon(works) {
     const figure = figureCreate(works);
   
@@ -28,6 +28,7 @@ function createFigureWithDeleteIcon(works) {
     deleteIcon.classList.add("delete-icon");
     deleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
   
+        // Gestionnaire d'événement pour supprimer un projet lors du clic sur l'icône
     deleteIcon.addEventListener("click", (e) => {
       e.preventDefault()
       deleteProjectById(works.id);
@@ -39,7 +40,7 @@ function createFigureWithDeleteIcon(works) {
     modalGallery.appendChild(figure);
   }
 
-// Créer la galerie modale à partir de datas
+// Fonction pour créer la galerie modale à partir des données
 function fetchAndCreateGalleryModal() {
     datas.forEach((works) => {
       createFigureWithDeleteIcon(works);
@@ -56,7 +57,7 @@ modal.addEventListener("click", (e) => {
 });
 
   
-// Ferme la modale en cliquant sur l'icône
+// Fonction pour fermer la première modale
 function closeFirstModal() {
     modal.style.display = 'none';
 }
@@ -89,17 +90,16 @@ function deleteProjectById(id) {
       }
   })
   .then(response => {
-      console.log(response.status);
       if (response.status === 204) {
           removeProjectFromDOM(id);
-          console.log(removeProjectFromDOM);
+          datas = datas.filter(work => work.id !== id);
           secondModal.style.display = "none";
           firstModal.style.display = "block";
           alert("Projet supprimé avec succès!");
       }
   })
   .catch(error => {
-      // Gérez les erreurs de la requête
+      
       console.error("Erreur lors de la suppression :", error);
   });
 }
@@ -116,10 +116,29 @@ function openSecondModal() {
     secondModal.style.display = "block";
     firstModal.style.display = "none";
     previewImage();
+    addEmptyOption();
 }
 openSecondModalButton.addEventListener("click", () => {
     openSecondModal();
 });
+
+// Fonction pour ajouter une option vide dans la liste déroulante
+function addEmptyOption() {
+  
+  const selectionCategories = document.getElementById("selectionCategories");
+
+  // Créez une option vide
+  const emptyOption = document.createElement('option');
+  emptyOption.value = ''; // Valeur vide
+  emptyOption.text = '';  // Texte vide
+
+  emptyOption.selected = true;
+
+  // Ajoutez l'option vide à l'élément 'select'
+  selectionCategories.appendChild(emptyOption);
+}
+
+
 
 //******** Retour à la première modal **********//
 
@@ -132,6 +151,7 @@ returnArrowBtn.addEventListener("click", () => {
 
 //******** Prévisualisation de l'image **********//
 
+// Fonction pour afficher une prévisualisation de l'image sélectionnée
 function previewImage() {
     const uploadImage = document.getElementById("uploadImage");
     const uploadedImage = document.getElementById("uploadedImage");
@@ -153,7 +173,7 @@ function previewImage() {
     })
 }
 
-
+// Fonction pour réinitialiser le champ de téléchargement d'image
 function resetUploadImageField(){
   const uploadImage = document.getElementById("uploadImage");
   const uploadedImage = document.getElementById("uploadedImage");
@@ -177,7 +197,7 @@ function resetUploadImageField(){
 const btnValiderNewProject = document.getElementById("btnValider");
 btnValiderNewProject.addEventListener("click", handleFormSubmit);
 
-  
+// Fonction pour réinitialiser le formulaire
 function resetForm() {
   form.reset();
   resetUploadImageField();
@@ -186,9 +206,11 @@ function resetForm() {
 const form = document.getElementById('form');
 form.addEventListener('submit', handleFormSubmit);
 
+// Gestionnaire d'événement pour soumettre le formulaire d'ajout de projet
 function handleFormSubmit(event) {
   event.preventDefault();
 
+  // Récupération des valeurs du formulaire
   const title = document.getElementById("titleInputModal").value;
   const category = document.getElementById("selectionCategories").value;
   const image = document.getElementById("uploadImage").files[0];
@@ -197,7 +219,7 @@ function handleFormSubmit(event) {
     alert("Veuillez remplir tous les champs du formulaire.");
     return;
   }
-
+  // Création d'un objet FormData pour envoyer les données du formulaire
   const formData = new FormData();
   formData.append('title', title);
   formData.append('category', category);
@@ -221,13 +243,12 @@ function handleFormSubmit(event) {
       gallery.innerHTML = "";
       createFigureWithDeleteIcon(works);
       fetchAndCreateGallery(works);
-      console.log("work")
       alert("Projet ajouté avec succès!");
       secondModal.style.display = "none";
       firstModal.style.display = "block";
       resetForm();
     })
     .catch(error => {
-      alert(error.message);
+      console.error("Erreur lors de l'ajout :", error);
     });
 }
