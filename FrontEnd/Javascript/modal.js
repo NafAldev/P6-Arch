@@ -195,7 +195,28 @@ function resetUploadImageField(){
 //******** Ajout d'un nouveau projet **********//
 
 const btnValiderNewProject = document.getElementById("btnValider");
-btnValiderNewProject.addEventListener("click", handleFormSubmit);
+const titleInput = document.getElementById("titleInputModal");
+const categorySelect = document.getElementById("selectionCategories");
+const imageInput = document.getElementById("uploadImage");
+
+// Écoutez les événements "input" et "change" pour les champs du formulaire
+titleInput.addEventListener("input", checkFormValidity);
+categorySelect.addEventListener("change", checkFormValidity);
+imageInput.addEventListener("change", checkFormValidity)
+
+
+function checkFormValidity() {
+  const title = titleInput.value;
+  const category = categorySelect.value;
+  const image = imageInput.files[0];
+
+  if (!title || !category || !image) {
+    btnValiderNewProject.classList.remove("enabled");
+  } else {
+      btnValiderNewProject.classList.add("enabled");
+  }
+}
+
 
 // Fonction pour réinitialiser le formulaire
 function resetForm() {
@@ -210,15 +231,17 @@ form.addEventListener('submit', handleFormSubmit);
 function handleFormSubmit(event) {
   event.preventDefault();
 
+  if (!btnValiderNewProject.classList.contains("enabled")) {
+    alert("Veuillez remplir tous les champs du formulaire.");
+    return;
+  }
+  
   // Récupération des valeurs du formulaire
   const title = document.getElementById("titleInputModal").value;
   const category = document.getElementById("selectionCategories").value;
   const image = document.getElementById("uploadImage").files[0];
 
-  if (!title || !category || !image) {
-    alert("Veuillez remplir tous les champs du formulaire.");
-    return;
-  }
+
   // Création d'un objet FormData pour envoyer les données du formulaire
   const formData = new FormData();
   formData.append('title', title);
@@ -252,3 +275,5 @@ function handleFormSubmit(event) {
       console.error("Erreur lors de l'ajout :", error);
     });
 }
+
+btnValiderNewProject.addEventListener("click", handleFormSubmit);
